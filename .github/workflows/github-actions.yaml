@@ -26,8 +26,8 @@ jobs:
       run: terraform init
       env:
         TF_ACTION_WORKING_DIR: '.'
-        backend-config: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        backend-config: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     - name: Terraform Validate
       id: validate
