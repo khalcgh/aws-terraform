@@ -11,13 +11,25 @@ provider "aws" {
   region = var.region
 }
 
-resource "aws_s3_bucket" "tfstate_bucket" {
-  bucket = "aws-tf-state-bucket"
+terraform {
+  backend "s3" {
+    bucket = "remote-state-tf-bucket"
+    region = "eu-west-2"
+    acl    = "private"
+  }
 }
 
-resource "aws_s3_bucket_acl" "tfstate_bucket_acl" {
+resource "aws_s3_bucket" "tfstate_bucket" {
+  bucket = "remote-state-tf-bucket"
+}
+
+resource "aws_s3_bucket_public_access_block" "tfstate_private" {
   bucket = aws_s3_bucket.tfstate_bucket.id
-  acl    = "private"
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }
 
 resource "aws_s3_bucket_versioning" "tfstate_bucket_versioning" {
