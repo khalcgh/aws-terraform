@@ -25,6 +25,7 @@ jobs:
       id: init
       run: terraform init
       env:
+        TF_ACTION_WORKING_DIR: '.'
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 

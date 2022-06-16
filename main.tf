@@ -14,6 +14,7 @@ provider "aws" {
 terraform {
   backend "s3" {
     bucket = "remote-state-tf-bucket"
+    key    = "terraform.tfstate"
     region = "eu-west-2"
     acl    = "private"
   }
