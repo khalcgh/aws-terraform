@@ -45,8 +45,8 @@ jobs:
 
     - name: tfsec
       uses: aquasecurity/tfsec-action@v1.0.0
-        additional_args:
-          required: false
+      with:
+        soft_fail: true
 
     - name: Terraform Plan Status
       if: steps.plan.outcome == 'failure'
