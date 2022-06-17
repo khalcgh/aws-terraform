@@ -43,8 +43,8 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       continue-on-error: true
 
-    - name: tfsec
-      uses: aquasecurity/tfsec-action@v1.0.0
+    # - name: tfsec
+    #   uses: aquasecurity/tfsec-action@v1.0.0
 
     - name: Update Pull Request
       if: github.event_name == 'pull_request'
