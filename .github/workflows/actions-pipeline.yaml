@@ -46,15 +46,6 @@ jobs:
     # - name: tfsec
     #   uses: aquasecurity/tfsec-action@v1.0.0
 
-    - name: Update Pull Request
-      if: github.event_name == 'pull_request'
-      env:
-        PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
-      run: |
-         chmod +x ./script.sh
-         ./script.sh
-      shell: bash
-
     - name: Terraform Plan Status
       if: steps.plan.outcome == 'failure'
       run: exit 1
@@ -65,3 +56,19 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.ref }}
+
+    - name: Generate Terraform docs
+      uses: terraform-docs/gh-actions@main
+      with:
+        working-dir: .
+        output-file: README.md
+        output-method: inject
+        git-push: "true"
