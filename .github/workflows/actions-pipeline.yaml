@@ -43,8 +43,10 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       continue-on-error: true
 
-    # - name: tfsec
-    #   uses: aquasecurity/tfsec-action@v1.0.0
+    - name: tfsec
+      uses: aquasecurity/tfsec-action@v1.0.0
+      additional_args:
+        required: false
 
     - name: Terraform Plan Status
       if: steps.plan.outcome == 'failure'
