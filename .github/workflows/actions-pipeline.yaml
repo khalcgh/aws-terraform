@@ -61,7 +61,7 @@ jobs:
     - name: Generate Infracost cost estimate baseline
       if: github.event_name == 'pull_request'
       env:
-        TF_ROOT: '/home/runner/work/'
+        TF_ROOT: 'TERRAFORM_CLI_PATH'
       run: |
         infracost breakdown --path=${TF_ROOT} \
                             --format=json \
@@ -70,7 +70,7 @@ jobs:
     - name: Generate Infracost diff
       if: github.event_name == 'pull_request'
       env:
-        TF_ROOT: '/home/runner/work/'
+        TF_ROOT: 'TERRAFORM_CLI_PATH'
       run: |
         infracost diff --path=${TF_ROOT} \
                        --format=json \
