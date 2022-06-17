@@ -61,14 +61,14 @@ jobs:
     - name: Generate Infracost cost estimate baseline
       if: github.event_name == 'pull_request'
       run: |
-        infracost breakdown --path=${TERRAFORM_CLI_PATH} \
+        infracost breakdown --path=/home/runner/work/_temp/ \
                             --format=json \
                             --out-file=/tmp/infracost-base.json
 
     - name: Generate Infracost diff
       if: github.event_name == 'pull_request'
       run: |
-        infracost diff --path=${TERRAFORM_CLI_PATH} \
+        infracost diff --path=/home/runner/work/_temp/ \
                        --format=json \
                        --compare-to=/tmp/infracost-base.json \
                        --out-file=/tmp/infracost.json
